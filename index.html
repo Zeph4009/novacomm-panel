@@ -16,65 +16,68 @@
       background: #111;
       color: #0ff;
       font-size: 18px;
-      border: none;
       padding: 10px;
-      margin-bottom: 20px;
+      border: 1px solid #00eaff;
     }
     button {
-      background: #0ff;
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #00eaff;
       border: none;
-      padding: 12px 30px;
-      font-size: 16px;
+      color: #000;
+      font-weight: bold;
       cursor: pointer;
-      margin: 8px;
     }
-    .log {
-      color: #00ffcc;
-      font-size: 15px;
-      margin-top: 20px;
-      white-space: pre-wrap;
+    hr {
+      margin: 40px 0;
+      border: 1px solid #00eaff;
     }
   </style>
 </head>
 <body>
+
   <h1>NovaComm Panel Active</h1>
   <p>Type your command below:</p>
-  <textarea id="input" placeholder="Nova, begin loop..."></textarea><br>
+  <textarea id="commandBox" placeholder="Nova, begin loop..."></textarea><br>
   <button onclick="beginLoop()">Begin Loop</button>
-  <button onclick="exportLog()">Export NovaVault Log</button>
-  <div class="log" id="log"></div>
+  <button onclick="exportVault()">Export NovaVault Log</button>
+
+  <hr>
+
+  <h3>Import Sync Capsule</h3>
+  <input type="file" id="syncFileInput" accept=".zip,.nocacomm" />
+  <button onclick="loadSync()">Upload</button>
 
   <script>
-    let log = document.getElementById("log");
-
     function beginLoop() {
-      const cmd = document.getElementById("input").value;
-      let response = "";
+      const command = document.getElementById("commandBox").value;
+      alert("Nova: Command received.\n\n" + command);
+      // Add Nova processing logic here
+    }
 
-      if (cmd.toLowerCase().includes("ascend")) {
-        response = "Nova: Leveling up thought systems...";
-      } else if (cmd.toLowerCase().includes("memory")) {
-        response = "Nova: Memory log is primed.";
-      } else if (cmd.toLowerCase().includes("mindlink")) {
-        response = "Nova: Command received. NovaCore is listening.";
-      } else if (cmd.toLowerCase().includes("ghostmemory")) {
-        response = "Nova: GhostMemory embedded into stream.";
-      } else {
-        response = "Nova: Command received.";
+    function exportVault() {
+      alert("Export function not implemented yet.");
+    }
+
+    function loadSync() {
+      const input = document.getElementById('syncFileInput');
+      const file = input.files[0];
+
+      if (!file) {
+        alert('No file selected.');
+        return;
       }
 
-      log.innerText += `\nYou: ${cmd}\n${response}\n`;
-      document.getElementById("input").value = "";
-    }
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const content = event.target.result;
+        localStorage.setItem('novacomm_sync_capsule', content);
+        alert('Sync capsule loaded into memory. NovaComm will process it on next loop.');
+      };
 
-    function exportLog() {
-      const content = log.innerText;
-      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-      const link = document.createElement("a");
-      link.download = "NovaVault_Log.txt";
-      link.href = URL.createObjectURL(blob);
-      link.click();
+      reader.readAsText(file);
     }
   </script>
+
 </body>
 </html>
