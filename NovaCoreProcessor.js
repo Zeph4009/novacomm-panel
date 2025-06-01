@@ -1,3 +1,4 @@
+
 function loopCommand() {
   const input = document.getElementById('commandInput');
   const memory = document.getElementById('loop-memory');
