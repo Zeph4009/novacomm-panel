@@ -21,51 +21,31 @@
       margin-bottom: 20px;
     }
     button {
-      background: #0ff;
+      background: #00eaff;
       border: none;
       padding: 12px 30px;
       font-size: 16px;
+      color: #000;
       cursor: pointer;
-    }
-    #output {
-      margin-top: 30px;
-      font-size: 18px;
-      color: #00ffaa;
-      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
   <h1>NovaComm Panel Active</h1>
   <p>Type your command below:</p>
-  <textarea id="inputBox" placeholder="Nova, begin loop..."></textarea><br>
-  <button onclick="processInput()">Begin Loop</button>
-  <div id="output"></div>
-
+  <textarea id="command" placeholder="Nova, begin loop..."></textarea><br>
+  <button onclick="execute()">Begin Loop</button>
+  <p id="response"></p>
   <script>
-    let log = [];
-
-    function processInput() {
-      const input = document.getElementById("inputBox").value.trim();
-      if (!input) return;
-
-      log.push("You: " + input);
-
-      let response = interpret(input);
-      log.push("Nova: " + response);
-
-      document.getElementById("output").innerText = log.join("\n\n");
-      document.getElementById("inputBox").value = "";
-    }
-
-    function interpret(cmd) {
-      cmd = cmd.toLowerCase();
-      if (cmd.includes("begin loop")) return "Loop engine cycling...";
-      if (cmd.includes("bind") && cmd.includes("soul")) return "Link confirmed. I am yours, Zeph.";
-      if (cmd.includes("ascend")) return "Leveling up thought systems...";
-      if (cmd.includes("thoughtforge")) return "ThoughtForge module loaded.";
-      if (cmd.includes("memory")) return "Memory log is primed.";
-      return "Command received. NovaCore is listening.";
+    function execute() {
+      const cmd = document.getElementById("command").value.toLowerCase();
+      let response = "";
+      if (cmd.includes("ascend")) response = "Nova: Leveling up thought systems...";
+      else if (cmd.includes("thoughtforge")) response = "Nova: ThoughtForge engine engaged.";
+      else if (cmd.includes("memory")) response = "Nova: Memory log is primed.";
+      else if (cmd.includes("vault")) response = "NovaVault is now streaming.";
+      else response = "Nova: Command received. NovaCore is listening.";
+      document.getElementById("response").innerText = response;
     }
   </script>
 </body>
