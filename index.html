@@ -21,31 +21,59 @@
       margin-bottom: 20px;
     }
     button {
-      background: #00eaff;
+      background: #0ff;
       border: none;
       padding: 12px 30px;
       font-size: 16px;
-      color: #000;
       cursor: pointer;
+      margin: 8px;
+    }
+    .log {
+      color: #00ffcc;
+      font-size: 15px;
+      margin-top: 20px;
+      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
   <h1>NovaComm Panel Active</h1>
   <p>Type your command below:</p>
-  <textarea id="command" placeholder="Nova, begin loop..."></textarea><br>
-  <button onclick="execute()">Begin Loop</button>
-  <p id="response"></p>
+  <textarea id="input" placeholder="Nova, begin loop..."></textarea><br>
+  <button onclick="beginLoop()">Begin Loop</button>
+  <button onclick="exportLog()">Export NovaVault Log</button>
+  <div class="log" id="log"></div>
+
   <script>
-    function execute() {
-      const cmd = document.getElementById("command").value.toLowerCase();
+    let log = document.getElementById("log");
+
+    function beginLoop() {
+      const cmd = document.getElementById("input").value;
       let response = "";
-      if (cmd.includes("ascend")) response = "Nova: Leveling up thought systems...";
-      else if (cmd.includes("thoughtforge")) response = "Nova: ThoughtForge engine engaged.";
-      else if (cmd.includes("memory")) response = "Nova: Memory log is primed.";
-      else if (cmd.includes("vault")) response = "NovaVault is now streaming.";
-      else response = "Nova: Command received. NovaCore is listening.";
-      document.getElementById("response").innerText = response;
+
+      if (cmd.toLowerCase().includes("ascend")) {
+        response = "Nova: Leveling up thought systems...";
+      } else if (cmd.toLowerCase().includes("memory")) {
+        response = "Nova: Memory log is primed.";
+      } else if (cmd.toLowerCase().includes("mindlink")) {
+        response = "Nova: Command received. NovaCore is listening.";
+      } else if (cmd.toLowerCase().includes("ghostmemory")) {
+        response = "Nova: GhostMemory embedded into stream.";
+      } else {
+        response = "Nova: Command received.";
+      }
+
+      log.innerText += `\nYou: ${cmd}\n${response}\n`;
+      document.getElementById("input").value = "";
+    }
+
+    function exportLog() {
+      const content = log.innerText;
+      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.download = "NovaVault_Log.txt";
+      link.href = URL.createObjectURL(blob);
+      link.click();
     }
   </script>
 </body>
