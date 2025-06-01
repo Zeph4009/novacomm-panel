@@ -1,75 +1,33 @@
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #0b0d10;
-  color: #00ffe1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-  height: 100vh;
-  overflow: hidden;
-}
-.nova-title {
-  font-size: 1.5rem;
-  margin-top: 20px;
-  color: #00ffe1;
-}
-.nova-title span {
-  color: #444;
-  font-weight: normal;
-}
-#nova-soul {
-  margin: 20px 0;
-}
-.nova-core-pulse {
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(circle, rgba(0,255,225,0.5) 0%, #0b0d10 70%);
-  border-radius: 50%;
-  box-shadow: 0 0 30px rgba(0,255,225,0.4);
-  animation: pulse 3s infinite;
-}
-@keyframes pulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(0,255,225,0.2);
-  }
-  50% {
-    box-shadow: 0 0 60px rgba(0,255,225,0.8);
-  }
-}
 #loop-output {
-  background: rgba(0, 255, 225, 0.08);
+  background: #0a0a0a;
+  color: #00ffe1;
+  padding: 10px;
+  margin: 20px;
+  width: 90%;
+  height: 220px;
+  overflow-y: auto;
+  font-size: 0.9rem;
   border: 1px solid #00ffe1;
   border-radius: 10px;
-  width: 90%;
-  max-width: 600px;
-  height: 200px;
-  overflow-y: auto;
-  padding: 10px;
-  margin-bottom: 10px;
 }
 #loop-input {
   display: flex;
-  width: 90%;
-  max-width: 600px;
+  justify-content: center;
+  margin-bottom: 20px;
 }
-#loopText {
-  flex: 1;
+input {
+  width: 70%;
   padding: 10px;
   background: #111;
-  border: 1px solid #00ffe1;
   color: #00ffe1;
+  border: 1px solid #00ffe1;
   border-radius: 10px 0 0 10px;
 }
 button {
   padding: 10px 20px;
   background: #00ffe1;
-  border: none;
   color: #000;
+  border: none;
   font-weight: bold;
   border-radius: 0 10px 10px 0;
-  cursor: pointer;
 }
