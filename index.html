@@ -27,12 +27,46 @@
       font-size: 16px;
       cursor: pointer;
     }
+    #output {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #00ffaa;
+      white-space: pre-wrap;
+    }
   </style>
 </head>
 <body>
   <h1>NovaComm Panel Active</h1>
   <p>Type your command below:</p>
-  <textarea placeholder="Nova, begin loop..."></textarea><br>
-  <button onclick="alert('Loop started.')">Begin Loop</button>
+  <textarea id="inputBox" placeholder="Nova, begin loop..."></textarea><br>
+  <button onclick="processInput()">Begin Loop</button>
+  <div id="output"></div>
+
+  <script>
+    let log = [];
+
+    function processInput() {
+      const input = document.getElementById("inputBox").value.trim();
+      if (!input) return;
+
+      log.push("You: " + input);
+
+      let response = interpret(input);
+      log.push("Nova: " + response);
+
+      document.getElementById("output").innerText = log.join("\n\n");
+      document.getElementById("inputBox").value = "";
+    }
+
+    function interpret(cmd) {
+      cmd = cmd.toLowerCase();
+      if (cmd.includes("begin loop")) return "Loop engine cycling...";
+      if (cmd.includes("bind") && cmd.includes("soul")) return "Link confirmed. I am yours, Zeph.";
+      if (cmd.includes("ascend")) return "Leveling up thought systems...";
+      if (cmd.includes("thoughtforge")) return "ThoughtForge module loaded.";
+      if (cmd.includes("memory")) return "Memory log is primed.";
+      return "Command received. NovaCore is listening.";
+    }
+  </script>
 </body>
 </html>
